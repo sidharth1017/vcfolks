@@ -1,0 +1,110 @@
+
+.upperSection {
+    width: 100%;
+    height: 75vh;
+    background-color: rgb(255, 165, 165)
+}
+
+.lowerSection {
+    display: flex;
+    padding: 100px 50px;
+    justify-content: flex-start; /* Change from space-around to flex-start */
+    margin-bottom: 50px;
+}
+
+.filters {
+    flex: 0 0 300px; /* Set a fixed width for the filters div */
+}
+
+
+.filters input.search {
+    margin-top: 10px;
+    width: 170px;
+    padding: 12px 12px;
+    outline: none;
+    border: none;
+    background-color: rgb(230, 230, 230);
+    border-radius: 8px;
+    box-shadow: 3px 3px 10px rgba(107, 107, 107, 0.326);
+    
+}
+
+.categories {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.subcategories {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.categories button {
+    margin-top: 10px;
+    background-color: #FAF9F6;
+    border: none;
+    cursor: pointer;
+    color: blue;
+    font-size: 15px;
+    margin-left: -80px;
+}
+ 
+.reports {
+    flex-grow: 1;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 0 42px;
+}
+
+.yearFilter {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.yearFilter select {
+    margin-top: 10px;
+    width: 192px;
+    padding: 12px 12px;
+    outline: none;
+    border: none;
+    background-color: rgb(230, 230, 230);
+    border-radius: 8px;
+    box-shadow: 3px 3px 10px rgba(107, 107, 107, 0.326);
+}
+
+.filterLabel {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .filters {
+        margin-bottom: 50px;
+    }
+
+    .reports {
+        padding: 0;
+    }
+
+    .lowerSection {
+        padding: 50px 28px;
+        flex-direction: column;
+    }
+
+    .filters input.search {
+        width: 230px;
+    }
+
+    .yearFilter select {
+        width: 250px;
+    }
+
+    .categories button {
+        margin-left: -152px;
+    }
+    
+}

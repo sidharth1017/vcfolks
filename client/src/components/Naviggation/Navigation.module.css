@@ -1,0 +1,28 @@
+.header {
+    position: fixed;
+    z-index: 999;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.103);
+}
+
+.container {
+    width: auto;
+    max-width: 90%;
+    display: flex;
+    height: 70px;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto; 
+}
+
+.container button {
+    padding: 10px 25px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: #F9C22E;
+    border: none;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    border-radius: 5px;
+    cursor: pointer;
+}
