@@ -16,11 +16,6 @@ const router = require('./routes');
 app.use(express.json());
 app.use(router);
 
-// Dummy Api to check express server
-app.get('/', (req, res) => {
-    res.send('Hello from Express server');
-});
-
 // Serving the frontend
 app.use(express.static(path.join(__dirname, "./client/build")));
 app.get("*", function (_, res) {
