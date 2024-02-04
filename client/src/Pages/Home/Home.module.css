@@ -259,6 +259,9 @@
   .container {
     flex-direction: column-reverse;
     padding-top: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
   }
 
   .landingPage .container .left h1 {
