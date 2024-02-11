@@ -8,8 +8,9 @@
 .lowerSection {
     display: flex;
     padding: 100px 50px;
+    padding-bottom: 10px;
     justify-content: flex-start; /* Change from space-around to flex-start */
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 .filters {
@@ -29,7 +30,7 @@
     
 }
 
-.categories {
+.categories, .authors {
     display: flex;
     flex-direction: column;
     margin-top: 20px;
@@ -81,6 +82,25 @@
     margin-bottom: 10px;
 }
 
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.pagination button {
+    padding: 10px 20px;
+    background-color: #F9C22E;
+    border: none;
+    cursor: pointer;
+}
+
+.pagination span {
+    padding: 6.3px 20px; 
+    border: 1px solid#F9C22E;
+}
+
 @media screen and (max-width: 768px) {
     .filters {
         margin-bottom: 50px;
@@ -88,14 +108,12 @@
 
     .reports {
         padding: 0;
-        margin: 0 auto;
     }
 
     .lowerSection {
-        padding: 75px 28px;
+        padding: 50px 28px;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        padding-bottom: 10px;
     }
 
     .filters input.search {

@@ -10,7 +10,7 @@ const Navigation = () => {
   return (
     <div className={styles.header}>
       <div className={styles.container}>
-        <h1><Link style={brandStyle} to="/">VC Folks</Link></h1>
+        <h1><Link style={brandStyle} to="/">The VC Project</Link></h1>
         <button><Link style={brandStyle} to="/reports">Reports</Link></button>
       </div>
     </div>

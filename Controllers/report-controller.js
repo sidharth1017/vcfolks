@@ -67,6 +67,10 @@ class ReportsController {
         filter.year = req.query.year;
       }
 
+      if (req.query.selectedAuthors) {
+        filter.author = { $in: req.query.selectedAuthors };
+      }
+
       const reports = await ReportModel.find(filter);
 
       return res.status(200).json({

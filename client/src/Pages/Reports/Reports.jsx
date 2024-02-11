@@ -76,12 +76,38 @@ const categoriesData = [
   },
 ];
 
+const authorsData = [
+  "Elevation Capital",
+  "Tracxn",
+  "Blume Ventures",
+  "RedSeer",
+  "Peak XV",
+  "Kalaari Capital",
+  "Bain & Company",
+  "Yourstory",
+  "BCG",
+  "Matrix Partners India",
+  "1Lattice",
+  "Chiratae Ventures",
+  "EY",
+  "Temasek",
+  "Google",
+  "Bigbasket",
+  "Omidyar Network",
+  "Lumikai Fund",
+  "GetVantage",
+];
+
 const Reports = () => {
   const [reports, setReports] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedSubcategories, setSelectedSubcategories] = useState([]);
   const [showAllCategories, setShowAllCategories] = useState(false);
   const [selectedYear, setSelectedYear] = useState("");
+  const [selectedAuthors, setSelectedAuthors] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [reportsPerPage] = useState(9);
 
   const handleCategoryClick = (category) => {
     setSelectedCategories((prevCategories) => {
@@ -107,6 +133,16 @@ const Reports = () => {
     });
   };
 
+  const handleAuthorClick = (author) => {
+    setSelectedAuthors((prevAuthors) => {
+      if (prevAuthors.includes(author)) {
+        return prevAuthors.filter((prevAuthor) => prevAuthor !== author);
+      } else {
+        return [...prevAuthors, author];
+      }
+    });
+  };
+
   const handleViewMoreClick = () => {
     setShowAllCategories(true);
   };
@@ -114,7 +150,8 @@ const Reports = () => {
   const fetchReports = async (
     selectedCategories,
     selectedSubcategories,
-    selectedYear
+    selectedYear,
+    selectedAuthors
   ) => {
     try {
       if (selectedYear === "select") {
@@ -124,7 +161,8 @@ const Reports = () => {
       const data = await getReports(
         selectedCategories,
         selectedSubcategories,
-        selectedYear
+        selectedYear,
+        selectedAuthors
       );
       setReports(data.reports);
     } catch (error) {
@@ -133,8 +171,35 @@ const Reports = () => {
   };
 
   useEffect(() => {
-    fetchReports(selectedCategories, selectedSubcategories, selectedYear);
-  }, [selectedCategories, selectedSubcategories, selectedYear]);
+    fetchReports(
+      selectedCategories,
+      selectedSubcategories,
+      selectedYear,
+      selectedAuthors
+    );
+  }, [
+    selectedCategories,
+    selectedSubcategories,
+    selectedYear,
+    selectedAuthors,
+  ]);
+
+  const filteredReports = reports.filter((report) => {
+    const searchTerms = searchQuery.toLowerCase().split(" ");
+    return searchTerms.every((term) => {
+      // Filter reports based on title and authors
+      return (
+        report.title.toLowerCase().includes(term) ||
+        report.author.some((author) => author.toLowerCase().includes(term))
+      );
+    });
+  });
+
+  const totalPages = Math.ceil(filteredReports.length / reportsPerPage);
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
 
   return (
     <div className={styles.reportSection}>
@@ -147,6 +212,8 @@ const Reports = () => {
             className={styles.search}
             type="text"
             name="report"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search..."
           />
           <div className={styles.yearFilter}>
@@ -213,18 +280,45 @@ const Reports = () => {
               </div>
             )}
           </div>
+
+          <div className={styles.authors}>
+            <span className={styles.filterLabel}>Authors</span>
+            {authorsData.map((author) => (
+              <label key={author} className={styles.checkboxLabel}>
+                <input
+                  type="checkbox"
+                  value={author}
+                  onChange={() => handleAuthorClick(author)}
+                />
+                <span> {author}</span>
+              </label>
+            ))}
+          </div>
         </div>
 
         <div className={styles.reports}>
-          {reports && reports.length > 0 ? (
-            reports.map((report, index) => (
+        {filteredReports
+            .slice((currentPage - 1) * reportsPerPage, currentPage * reportsPerPage)
+            .map((report, index) => (
               <ReportCard key={index} report={report} />
-            ))
-          ) : (
-            <p>No reports available.</p>
-          )}
+            ))}
         </div>
       </div>
+      <div className={styles.pagination}>
+          <button
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            &lt;
+          </button>
+          <span>{currentPage}</span>
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          >
+            &gt;
+          </button>
+        </div>
     </div>
   );
 };
